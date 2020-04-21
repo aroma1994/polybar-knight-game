@@ -13,7 +13,7 @@ Add a dragon https://fontawesome.com/icons/dragon?style=solid, a heart https://f
 
 You can change variables in the script:
 
-$lives — 3 by default — to any integer lives you want
+$lives — 5 by default — to any integer lives you want
 
 $level — 30 by default — to 1-255 (it will ++ from time to time while you play)
 
