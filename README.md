@@ -13,7 +13,7 @@ You can change variables in the script:
 
 $lives — 3 by default — to any integer lives you want
 
-$level — 70 by default — to 1-255 (it will ++ from time to time while you play)
+$level — 30 by default — to 1-255 (it will ++ from time to time while you play)
 
 $speed — 5 minutes by default — to
 + Ns (N seconds for very-very fast game) or
