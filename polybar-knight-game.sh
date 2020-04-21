@@ -1,122 +1,73 @@
-#!/bin/sh
+#!/bin/bash
 
-FILE="/tmp/polybar-knight-game-dragons"
+dragons_title="DRAGONS" # ""
+lives_title="LIVES" # ""
+dead_title="YOU'RE DEAD" # ""
 
-dragons_write() {
-
-		echo $dragons > $FILE
-
-	}
-
-dragons_read() {
-
-		dragons=$(<$FILE)
-
-	}
+fight() {
+    if [[ $dragons -gt 0 ]]
+        then
+            (( dragons-- ))
+    fi
+    toggle=1
+}
 
 fate() {
+    echo $(od -A n -t d -N 1 /dev/urandom | tr -d ' ')
+}
 
-		echo $(od -A n -t d -N 1 /dev/urandom | tr -d ' ')
+start() {
+    lives=3
+    dragons=0
+    level=70
+    toggle_name="fight"
+}
 
-	}
-
-case "$1" in
-
-	--removedragon)
-
-		dragons_read
-		if [ $dragons -gt 0 ]
-
-			then
-
-				(( dragons-- ))
-				dragons_write
-
-			fi
-
-	;;
-
-	*)
-
-		lives=5 # 1 ... N
-		level=30 # 1-255
-		speed="30m" # s, m, h, d
-
-		dragons=0 # initialization
-		dragons_write
-
-		while [ $lives -ne 0 ]
-
-			do
-
-				dragons_read
-				if [ $dragons -eq 0 ]
-
-					then
-
-						if [ $(fate) -lt $level ]
-
-							then
-
-								(( dragons++ ))
-
-						fi
-
-					elif [ $dragons -eq 10 ]
-
-						then
-
-							(( lives-- ))
-							dragons=0
-
-					else
-
-						(( dragons++ ))
-
-					fi
-
-				if [ $level -lt 255 ]
-
-					then
-
-						if [ $(fate) -lt $(fate) ]
-
-							then
-
-								(( level++ ))
-
-							fi
-
-					fi
-
-				if [ $dragons -gt 0 ]
-
-					then
-
-						echo " #2 " $lives " #1 " $dragons
-
-					else
-
-						echo " #2 " $lives
-
-					fi
-
-
-				dragons_write
-				sleep $speed &
-				wait
-
-			done
-
-		while :
-
-			do
-
-				echo "#1#3"
-
-			done
-      
-	;;
-
-	esac
-  
+start
+while :
+    do
+        trap "$toggle_name" USR1
+        case $lives in
+        0)
+            toggle_name="start"
+            output="%{A1: kill -USR1 $$ :} $dead_title %{A}"
+            ;;
+        *)
+            case $toggle in
+            1)
+                toggle=0
+                ;;
+            *)
+                case $dragons in
+                10)
+                    (( lives-- ))
+                    dragons=0
+                    ;;
+                0)
+                    if [[ $(fate) -lt $level ]] 
+                        then
+                            (( dragons++ ))
+                    fi
+                    ;;
+                *)
+                    (( dragons++ ))
+                    ;;
+                esac
+                ;;
+            esac
+            output=""
+            if [[ $level -lt 255 ]] && [[ $(fate) -lt 127 ]]
+                then
+                    (( level++ ))
+            fi
+            if [[ $dragons -gt 0 ]]
+                then
+                    output="%{A1: kill -USR1 $$ :} $dragons_title $dragons/10 %{A}"
+            fi
+            output+="$lives_title $lives"
+            ;;
+        esac
+        echo "$output AT LV $level"
+        sleep 5m &
+        wait
+  done
