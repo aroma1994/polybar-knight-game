@@ -2,7 +2,7 @@
 
 A [Polybar](https://github.com/jaagr/polybar) .sh-script game.
 
-A simple and slow background .sh-game. You have 5 lives. You live in the world full of darkness where from time to time dragons are resurge. When you meet dragon press on it to kill it. If there're 10/10 dragons you lose one of your lives.
+A simple and slow background .sh-game. You have 5 lives. You live in the world full of darkness where from time to time dragons are resurge. When you meet a dragon press on it to kill it. If there're 10/10 dragons you lose one of your lives.
 
 ![polybar-knight-game](screenshots/polybar-knight-game.png)
 
