@@ -68,6 +68,6 @@ while :
             ;;
         esac
         echo "$output"
-        sleep 60 &
+        sleep 300 &
         wait
   done
