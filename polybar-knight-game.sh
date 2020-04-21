@@ -17,7 +17,7 @@ fate() {
 }
 
 start() {
-    lives=3
+    lives=5
     dragons=0
     level=30
     toggle_name="fight"
