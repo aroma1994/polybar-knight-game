@@ -1,8 +1,8 @@
-#!/bin/bash
+#!/bin/sh
 
-dragons_title="DRAGONS" # ""
-lives_title="LIVES" # ""
-dead_title="YOU'RE DEAD" # ""
+dragons_title="DRAGONS" # " "
+lives_title="LIVES" # " "
+death_title="YOU'RE DEAD" # "  "
 
 fight() {
     if [[ $dragons -gt 0 ]]
@@ -30,7 +30,7 @@ while :
         case $lives in
         0)
             toggle_name="start"
-            output="%{A1: kill -USR1 $$ :} $dead_title %{A}"
+            output="%{A1: kill -USR1 $$ :} $death_title AT $level LV %{A}"
             ;;
         *)
             case $toggle in
@@ -62,12 +62,12 @@ while :
             fi
             if [[ $dragons -gt 0 ]]
                 then
-                    output="%{A1: kill -USR1 $$ :} $dragons_title $dragons/10 %{A}"
+                    output="%{A1: kill -USR1 $$ :} $dragons_title $dragons/10 %{A} "
             fi
-            output+="$lives_title $lives"
+            output+="$lives_title $lives "
             ;;
         esac
-        echo "$output AT LV $level"
-        sleep 5m &
+        echo "$output"
+        sleep 60 &
         wait
   done
