@@ -4,6 +4,8 @@ A [Polybar](https://github.com/jaagr/polybar) script game. Only one knight. Only
 
 ![polybar-knight-game](screenshots/polybar-knight-game.png)
 
+![polybar-knight-game-another](screenshots/polybar-knight-game-another.png)
+
 ## Configuration
 
 Add a dragon https://fontawesome.com/icons/dragon?style=solid, a heart https://fontawesome.com/icons/heart?style=solid and a skull https://fontawesome.com/icons/skull?style=solid symbols from Font Awesome 5 Free instead dragons_title, lives_title and dead_title in the script.
